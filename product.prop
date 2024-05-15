@@ -1,0 +1,15 @@
+apr.flag.bootmode=1
+dalvik.vm.systemservercompilerfilter=speed-profile
+persist.netmon.linger=10000
+persist.storage.type=2
+persist.sys.extrainfo=
+persist.sys.fuse.passthrough.enable=true
+ro.config.alarm_alert=Alarm_Classic.ogg
+ro.config.notification_sound=pixiedust.ogg
+ro.config.ringtone=Ring_Synth_04.ogg,Ring_Synth_02.ogg
+ro.postinstall.fstab.prefix=/product
+ro.product.ab_ota_partitions=boot,dtbo,l_agdsp,l_deltanv,l_fixnv1,l_fixnv2,l_gdsp,l_ldsp,l_modem,mmcblk0boot1,odm,pm_sys,product,sdc,sml,system,system_ext,teecfg,trustos,uboot,vbmeta,vbmeta_odm,vbmeta_product,vbmeta_system,vbmeta_system_ext,vbmeta_vendor,vendor,vendor_boot,vendor_dlkm
+ro.product.hardware=ums9230_4h10_go
+ro.secure_boot.state=1
+ro.vendor.native_version=1
+sys.internal.emulated=1
