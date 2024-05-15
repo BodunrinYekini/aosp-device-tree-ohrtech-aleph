@@ -3147,4 +3147,3 @@ vendor/usr/idc/synaptics_dsx.idc
 vendor/usr/idc/synaptics_dsx_i2c.idc
 vendor/usr/keylayout/adaptive_ts.kl
 vendor/usr/keylayout/gpio-keys.kl
-vendor/classes.dex
