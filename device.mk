@@ -98,7 +98,7 @@ PRODUCT_COPY_FILES += \
 # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
-#DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += device/google/pantah/device_framework_matrix_product.xml
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/product_compatibility_matrix.xml
     
 
 # Soong namespaces
