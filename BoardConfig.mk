@@ -93,13 +93,6 @@ BOARD_OHRTECH_DYNAMIC_PARTITIONS_SIZE := 4294967296 # TODO: Fix hardcoded value
 TARGET_BOARD_PLATFORM := ums9230
 
 
-TARGET_COPY_OUT_ODM := vendor/odm
-TARGET_COPY_OUT_PRODUCT := system/product
-TARGET_COPY_OUT_VENDOR := system/vendor
-TARGET_COPY_OUT_VENDOR_DLKM := vendor/vendor_dlkm
-TARGET_COPY_OUT_SYSTEM_EXT := system/system_ext
-TARGET_COPY_OUT_SYSTEM := system/system
-
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
