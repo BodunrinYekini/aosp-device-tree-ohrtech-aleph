@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
 
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
 	messaging
     
 # Overlays
@@ -85,6 +85,13 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default
+
+# NFC
+PRODUCT_PACKAGES += \
+    libnfc-nci \
+    libnfc_nci_jni \
+    NfcNci \
+    Tag
 
 # Rootdir
 PRODUCT_PACKAGES += \
