@@ -5,7 +5,7 @@
 #
 
 DEVICE_PATH := device/ohrtech/aleph
-PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
+
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
