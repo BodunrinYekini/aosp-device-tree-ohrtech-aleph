@@ -26,6 +26,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+
 PRODUCT_PACKAGES += \
     linker.recovery \
     shell_and_utilities_recovery \
