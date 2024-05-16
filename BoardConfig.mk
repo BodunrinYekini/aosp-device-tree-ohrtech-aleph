@@ -16,7 +16,7 @@ AB_OTA_PARTITIONS += \
     odm \
     system
 BOARD_USES_RECOVERY_AS_BOOT := true
-
+BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
