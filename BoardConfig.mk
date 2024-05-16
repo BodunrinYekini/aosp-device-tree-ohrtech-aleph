@@ -123,7 +123,7 @@ BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX_LOCATION := 1
 
 # Sepolicy
 BOARD_SEPOLICY_DIRS += \
-        $(DEVICE_PATH)/sepolicy
+        $(DEVICE_PATH)/selinux
 
 # Inherit the proprietary files
 include vendor/ohrtech/aleph/BoardConfigVendor.mk
