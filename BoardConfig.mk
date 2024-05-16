@@ -121,7 +121,21 @@ BOARD_AVB_VENDOR_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX := 1
 BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX_LOCATION := 1
 
+# Sepolicy
+BOARD_SEPOLICY_DIRS += \
+        $(DEVICE_PATH)/sepolicy
 
+BOARD_SEPOLICY_UNION += \
+        file_contexts \
+        hwservice_contexts \
+        keystore2_key_contexts \
+        mac_permissions.xml \
+        property_contexts \
+        seapp_contexts \
+        sepolicy.cil \
+        service_contexts \
+
+SELINUX_IGNORE_NEVERALLOWS := true
 
 # Inherit the proprietary files
 include vendor/ohrtech/aleph/BoardConfigVendor.mk
