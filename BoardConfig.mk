@@ -133,7 +133,7 @@ TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 # Build a separate odm.img partition
 BOARD_USES_ODMIMAGE := true
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := $(TARGET_RO_FILE_SYSTEM_TYPE)
-TARGET_COPY_OUT_ODM := vendor/odm
+TARGET_COPY_OUT_ODM := odm
 
 # Build a separate vendor_dlkm partition
 BOARD_USES_VENDOR_DLKMIMAGE := true
