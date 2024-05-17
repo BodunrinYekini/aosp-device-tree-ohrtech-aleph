@@ -135,11 +135,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.ums9230_1h10:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.ums9230_1h10
 
-# VINTF
+   # VINTF
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
-DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE += $(DEVICE_PATH)/product_compatibility_matrix.xml
-    
+#/vendor/etc/vintf/compatibility_matrix.xml
+DEVICE_MATRIX_FILE += $(DEVICE_PATH)/device_compatibility_matrix.xml
+
+#/product/etc/vintf/compatibility_matrix.xml 
+DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE+= $(DEVICE_PATH)/product_compatibility_matrix.xml 
+
+#/system/etc/vintf/compatibility_matrix.device.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE+=$(DEVICE_PATH)/system_compatibility_matrix.xml
+
+
 # Sepolicy
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/system
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
