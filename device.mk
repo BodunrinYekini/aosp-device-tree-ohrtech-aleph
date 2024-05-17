@@ -4,15 +4,27 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
+#$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
+# Enable CSI checking
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
+#
+# All components inherited here go to system_ext image
+#
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
 
-# PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
-# $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
-# $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
-# $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
+#
+# All components inherited here go to product image
+#
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_product.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 
 
@@ -82,6 +94,12 @@ PRODUCT_CHARACTERISTICS := default
     libnfc_nci_jni \
     NfcNci \
     Tag
+
+    # Keep the VNDK APEX in /system partition for REL branches as these branches are
+# expected to have stable API/ABI surfaces.
+ifneq (REL,$(PLATFORM_VERSION_CODENAME))
+  PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
+endif
 
 # Rootdir
 PRODUCT_PACKAGES += \
