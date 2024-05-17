@@ -4,18 +4,52 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+DEVICE_PATH := device/ohrtech/aleph
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
+#DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-lineage
+    
+PRODUCT_PACKAGES += \
+    linker.recovery \
+    shell_and_utilities_recovery \
+    adbd.vendor_ramdisk
 
-TARGET_PREBUILT_KERNEL := device/ohrtech/aleph/prebuilts/kernel
+TARGET_PREBUILT_KERNEL := device/ohrtech/aleph/prebuilt/kernel
 PRODUCT_COPY_FILES += \
 	$(TARGET_PREBUILT_KERNEL):kernel
+
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
+# A/B
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
+PRODUCT_PACKAGES += snapuserd_ramdisk
+
+
+## vendor overlay
+# PRODUCT_COPY_FILES += \
+# $(LOCAL_PATH)/vendor/overlay/MultiuserOverlays.apk:$(BUILD_PREBUILT)/MultiuserOverlays.apk
+# $(LOCAL_PATH)/vendor/overlay/NetworkStackOverlayGo.apk:$(BUILD_PREBUILT)/overlay/NetworkStackOverlayGo.apk
+# $(LOCAL_PATH)/vendor/overlay/NetworkStackOverlayGsi.apk:$(BUILD_PREBUILT)/overlay/NetworkStackOverlayGsi.apk
+# $(LOCAL_PATH)/vendor/overlay/Settings__auto_generated_rro_vendor.apk:$(BUILD_PREBUILT)/overlay/Settings__auto_generated_rro_vendor.apk
+# $(LOCAL_PATH)/vendor/overlay/TetheringConfigOverlayGo.apk:$(BUILD_PREBUILT)/overlay/TetheringConfigOverlayGo.apk
+# $(LOCAL_PATH)/vendor/overlay/TetheringConfigOverlayGsi.apk:$(BUILD_PREBUILT)/overlay/TetheringConfigOverlayGsi.apk
+# $(LOCAL_PATH)/vendor/overlay/unisoc_go_overlay_frameworks_res.apk:$(BUILD_PREBUILT)/overlay/unisoc_go_overlay_frameworks_res.apk
+# $(LOCAL_PATH)/vendor/overlay/unisoc_overlay_frameworks_res.apk:$(BUILD_PREBUILT)/overlay/unisoc_overlay_frameworks_res.apk
+# $(LOCAL_PATH)/vendor/overlay/AospBtOverlay/AospBtOverlay.apk:$(BUILD_PREBUILT)/overlay/AospBtOverlay/AospBtOverlay.apk
+# $(LOCAL_PATH)/vendor/overlay/AospWifiOverlay_Marlin3/AospWifiOverlay_Marlin3.apk:$(BUILD_PREBUILT)/overlay/AospWifiOverlay_Marlin3/AospWifiOverlay_Marlin3.apk
+# $(LOCAL_PATH)/vendor/overlay/AospWifiOverlay_Marlin3_Mainline/AospWifiOverlay_Marlin3_Mainline.apk:$(BUILD_PREBUILT)/overlay/AospWifiOverlay_Marlin3_Mainline/AospWifiOverlay_Marlin3_Mainline.apk
+# $(LOCAL_PATH)/vendor/overlay/UniWifiOverlay_Marlin3/UniWifiOverlay_Marlin3.apk:$(BUILD_PREBUILT)/overlay/UniWifiOverlay_Marlin3/UniWifiOverlay_Marlin3.apk
+#$(DEVICE_PATH)/configs/displayconfig/display_id_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_0.xml
+
+# Display config
+PRODUCT_COPY_FILES += \
+  $(LOCAL_PATH)/displayconfig/display_id_4630947256895775107.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/display_id_4630947256895775107.xml \
+  $(LOCAL_PATH)/displayconfig/thermal_brightness_control.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/thermal_brightness_control.xml
 
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl \
@@ -26,18 +60,6 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_engine_sideload \
     update_verifier
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=erofs \
-    POSTINSTALL_OPTIONAL_system=true
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_vendor=true \
-    POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
-    FILESYSTEM_TYPE_vendor=erofs \
-    POSTINSTALL_OPTIONAL_vendor=true
 
 PRODUCT_PACKAGES += \
     checkpoint_gc \
@@ -55,37 +77,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health-service.example \
 
-PRODUCT_PACKAGES += \
-	messaging
-    
 # Overlays
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
-# Dynamic partitions
+# Partitions
 PRODUCT_BUILD_SUPER_PARTITION := true
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
-PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
-PRODUCT_ENFORCE_VINTF_MANIFEST := true
-
-# All VNDK libraries (HAL interfaces, VNDK, VNDK-SP, LL-NDK)
-PRODUCT_PACKAGES += vndk_package
 
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default
-
-# NFC
-#ssssPRODUCT_PACKAGES += \
-    libnfc-nci \
-    libnfc_nci_jni \
-    NfcNci \
-    Tag
-
-    # Keep the VNDK APEX in /system partition for REL branches as these branches are
-# expected to have stable API/ABI surfaces.
-ifneq (REL,$(PLATFORM_VERSION_CODENAME))
-  PRODUCT_PACKAGES += com.android.vndk.current.on_vendor
-endif
 
 # Rootdir
 PRODUCT_PACKAGES += \
@@ -98,26 +99,9 @@ PRODUCT_PACKAGES += \
     init.insmod.sh \
     setup_console.sh \
     zramwb.sh \
-    framework-res__auto_generated_rro_product \
-    framework-res_navbar_rro \
-    FrameworkResOverlay \
-    GoogleCaptivePortalLoginGoOverlay \
-    GoogleDocumentsUIOverlay \
-    GoogleExtServicesConfigOverlay \
-    GooglePermissionControllerFrameworkOverlay \
-    GooglePermissionControllerOverlay \
-    ModuleMetadataGoogleOverlay \
-    Settings__auto_generated_rro_product \
-    SettingsProvider__auto_generated_rro_product \
-    SysuiGoConfigOverlay \
-    TeleService__auto_generated_rro_product \
-    TeleServiceOverlay \
-    unisoc-res__auto_generated_rro_product \
-    WallpaperOverlay \
-    com.google.mainline.go.telemetry
 
 PRODUCT_PACKAGES += \
-    fstab.ums9230_1h10 \
+    fstab.cali \
     init.cali.rc \
     init.ram.gms.rc \
     init.ram.native.rc \
@@ -136,24 +120,7 @@ PRODUCT_PACKAGES += \
     init.zramwb.rc \
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.ums9230_1h10:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.ums9230_1h10
-
-   # VINTF
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
-
-#/vendor/etc/vintf/compatibility_matrix.xml
-DEVICE_MATRIX_FILE += $(DEVICE_PATH)/device_compatibility_matrix.xml
-
-#/product/etc/vintf/compatibility_matrix.xml 
-DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE+= $(DEVICE_PATH)/product_compatibility_matrix.xml 
-
-#/system/etc/vintf/compatibility_matrix.device.xml
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE+=$(DEVICE_PATH)/system_compatibility_matrix.xml
-
-
-# Sepolicy
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/system
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
+    $(LOCAL_PATH)/rootdir/etc/fstab.cali:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.cali
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
@@ -161,3 +128,29 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # Inherit the proprietary files
 $(call inherit-product, vendor/ohrtech/aleph/aleph-vendor.mk)
+
+# Hidl Service
+PRODUCT_ENFORCE_VINTF_MANIFEST := true
+
+# VENDOR_BOOT_ROOT_MODULE_DIR := $(DEVICE_PATH)/prebuilt/vendor_boot/root
+# KERNEL_MODULE_DIR := $(DEVICE_PATH)/prebuilt/vendor_boot/lib/modules
+# FIRST_STAGE_MODULE_DIR := $(DEVICE_PATH)/prebuilt/vendor_boot/first_stage_ramdisk
+# SYSTEM_BIN_MODULE_DIR := $(DEVICE_PATH)/prebuilt/vendor_boot/system/bin
+# SYSTEM_LIB64_MODULE_DIR := $(DEVICE_PATH)/prebuilt/vendor_boot/system/lib64
+
+# PRODUCT_COPY_FILES += \
+#         $(foreach f,$(wildcard $(KERNEL_MODULE_DIR)/*),$(f):$(subst $(KERNEL_MODULE_DIR),$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/modules/,$(f)))
+
+# PRODUCT_COPY_FILES += \
+#         $(foreach f,$(wildcard $(FIRST_STAGE_MODULE_DIR)/*),$(f):$(subst $(FIRST_STAGE_MODULE_DIR),$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/,$(f)))
+
+# PRODUCT_COPY_FILES += \
+#         $(foreach f,$(wildcard $(SYSTEM_BIN_MODULE_DIR)/*),$(f):$(subst $(SYSTEM_BIN_MODULE_DIR),$(TARGET_COPY_OUT_VENDOR_RAMDISK)/system/bin/,$(f)))
+
+# PRODUCT_COPY_FILES += \
+#         $(foreach f,$(wildcard $(SYSTEM_LIB64_MODULE_DIR)/*),$(f):$(subst $(SYSTEM_LIB64_MODULE_DIR),$(TARGET_COPY_OUT_VENDOR_RAMDISK)/system/lib64/,$(f)))
+
+# PRODUCT_COPY_FILES += \
+#         $(foreach f,$(wildcard $(VENDOR_BOOT_ROOT_MODULE_DIR)/*),$(f):$(subst $(VENDOR_BOOT_ROOT_MODULE_DIR),$(TARGET_COPY_OUT_VENDOR_RAMDISK)/,$(f)))
+
+ #BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := \
