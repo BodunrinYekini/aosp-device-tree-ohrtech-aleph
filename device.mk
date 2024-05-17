@@ -95,6 +95,23 @@ PRODUCT_PACKAGES += \
     init.insmod.sh \
     setup_console.sh \
     zramwb.sh \
+    framework-res__auto_generated_rro_product \
+    framework-res_navbar_rro \
+    FrameworkResOverlay \
+    GoogleCaptivePortalLoginGoOverlay \
+    GoogleDocumentsUIOverlay \
+    GoogleExtServicesConfigOverlay \
+    GooglePermissionControllerFrameworkOverlay \
+    GooglePermissionControllerOverlay \
+    ModuleMetadataGoogleOverlay \
+    Settings__auto_generated_rro_product \
+    SettingsProvider__auto_generated_rro_product \
+    SysuiGoConfigOverlay \
+    TeleService__auto_generated_rro_product \
+    TeleServiceOverlay \
+    unisoc-res__auto_generated_rro_product \
+    WallpaperOverlay \
+    com.google.mainline.go.telemetry
 
 PRODUCT_PACKAGES += \
     fstab.ums9230_1h10 \
