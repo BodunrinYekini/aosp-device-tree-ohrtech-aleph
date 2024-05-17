@@ -21,6 +21,7 @@ AB_OTA_PARTITIONS += \
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 BOARD_BOOT_HEADER_VERSION := 4
+BUILD_BROKEN_VINTF_PRODUCT_COPY_FILES := true
 
 
 # Architecture
@@ -176,7 +177,7 @@ DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 PRODUCT_ENFORCE_VINTF_MANIFEST := true
 
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
-$(DEVICE_PATH)/compatibility_matrix.xml \
+$(DEVICE_PATH)/system_compatibility_matrix.xml
 
 
 # Inherit the proprietary files
