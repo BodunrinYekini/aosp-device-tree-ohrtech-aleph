@@ -10,11 +10,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
-PRODUCT_PACKAGES += \
-    linker.recovery \
-    shell_and_utilities_recovery \
-    adbd.recovery 
 
 TARGET_PREBUILT_KERNEL := device/ohrtech/aleph/prebuilts/kernel
 PRODUCT_COPY_FILES += \
