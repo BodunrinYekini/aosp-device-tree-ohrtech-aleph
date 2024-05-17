@@ -117,7 +117,7 @@ PRODUCT_PACKAGES += \
     init.zramwb.rc \
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.cali:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.cali
+$(LOCAL_PATH)/rootdir/etc/fstab.ums9230_1h10:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.ums9230_1h10
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
