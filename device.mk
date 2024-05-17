@@ -62,9 +62,14 @@ PRODUCT_PACKAGES += \
 # Overlays
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
-# Partitions
-PRODUCT_BUILD_SUPER_PARTITION := false
+# Dynamic partitions
+PRODUCT_BUILD_SUPER_PARTITION := true
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_USE_DYNAMIC_PARTITION_SIZE := true
+
+# All VNDK libraries (HAL interfaces, VNDK, VNDK-SP, LL-NDK)
+PRODUCT_PACKAGES += vndk_package
+
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := default
