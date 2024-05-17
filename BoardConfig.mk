@@ -138,7 +138,7 @@ TARGET_COPY_OUT_ODM := vendor/odm
 # Build a separate vendor_dlkm partition
 BOARD_USES_VENDOR_DLKMIMAGE := true
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR_DLKM := vendor/vendor_dlkm
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 
 
 
