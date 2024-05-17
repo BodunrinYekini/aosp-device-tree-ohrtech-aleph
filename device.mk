@@ -8,7 +8,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
+# $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
 PRODUCT_PACKAGES += \
     linker.recovery \
