@@ -17,7 +17,7 @@ PRODUCT_PACKAGES += \
     shell_and_utilities_recovery \
     adbd.vendor_ramdisk
 
-TARGET_PREBUILT_KERNEL := device/ohrtech/aleph/prebuilt/kernel
+TARGET_PREBUILT_KERNEL := device/ohrtech/aleph/prebuilts/kernel
 PRODUCT_COPY_FILES += \
 	$(TARGET_PREBUILT_KERNEL):kernel
 
@@ -46,10 +46,7 @@ PRODUCT_PACKAGES += snapuserd_ramdisk
 # $(LOCAL_PATH)/vendor/overlay/UniWifiOverlay_Marlin3/UniWifiOverlay_Marlin3.apk:$(BUILD_PREBUILT)/overlay/UniWifiOverlay_Marlin3/UniWifiOverlay_Marlin3.apk
 #$(DEVICE_PATH)/configs/displayconfig/display_id_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_0.xml
 
-# Display config
-PRODUCT_COPY_FILES += \
-  $(LOCAL_PATH)/displayconfig/display_id_4630947256895775107.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/display_id_4630947256895775107.xml \
-  $(LOCAL_PATH)/displayconfig/thermal_brightness_control.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/displayconfig/thermal_brightness_control.xml
+
 
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl \
